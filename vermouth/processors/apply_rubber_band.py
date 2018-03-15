@@ -51,9 +51,14 @@ def build_connectivity_matrix(graph, separation, selection=None):
     subgraph = graph.subgraph(selection)
     connectivity = np.zeros((len(subgraph), len(subgraph)), dtype=bool)
     for (i, key_i),  (j, key_j) in itertools.combinations(enumerate(subgraph.nodes), 2):
-        shortest_path = len(nx.shortest_path(subgraph, key_i, key_j))
-        # The source and the target are counted in the shortest path
-        connectivity[i, j] = shortest_path <= separation + 2
+        try:
+            shortest_path = nx.shortest_path(subgraph, key_i, key_j)
+        except nx.exception.NetworkXNoPath:
+            connectivity[i, j] = False
+        else:
+            shortest_path = len(shortest_path)
+            # The source and the target are counted in the shortest path
+            connectivity[i, j] = shortest_path <= separation + 2
         connectivity[j, i] = connectivity[i, j]
     return connectivity
 

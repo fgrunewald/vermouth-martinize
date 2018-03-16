@@ -167,7 +167,7 @@ def read_mapping_directory(directory):
     directory = Path(directory)
     mappings = {}
     for path in directory.glob('**/*.map'):
-        with open(path) as infile:
+        with open(str(path)) as infile:
             name, all_from_ff, all_to_ff, mapping, weights, extra = read_mapping(infile)
         for from_ff in all_from_ff:
             mappings[from_ff] = mappings.get(from_ff, {})

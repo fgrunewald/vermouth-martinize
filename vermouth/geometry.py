@@ -60,8 +60,8 @@ def dihedral(vectorAB, vectorBC, vectorCD):
     normalABC /= np.linalg.norm(normalABC)
     normalBCD = np.cross(vectorBC, vectorCD)
     normalBCD /= np.linalg.norm(normalBCD)
-    frame_m = np.dot(normalABC, unitBC)
-    x = np.cross(normalABC, normalBCD)
-    y = np.cross(frame_m, normalBCD)
+    frame_m = np.cross(normalABC, unitBC)
+    x = np.dot(normalABC, normalBCD)
+    y = np.dot(frame_m, normalBCD)
     return np.arctan2(x, y)
 

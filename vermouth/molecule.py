@@ -106,7 +106,7 @@ class ParamAngle(LinkParameterEffector):
 class ParamDihedral(LinkParameterEffector):
     n_keys_asked = 4
 
-    def apply(self, molecue, keys):
+    def apply(self, molecule, keys):
         # This will raise a ValueError if an atom is missing, or if an
         # atom does not have position.
         positions = np.stack([molecule.nodes[key]['position'] for key in keys])

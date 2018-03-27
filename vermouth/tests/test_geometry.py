@@ -21,8 +21,6 @@ import pytest
 import numpy as np
 from vermouth import geometry
 
-import MDAnalysis as mda
-
 
 def _generate_test_angles(n_angles):
     """
@@ -115,5 +113,4 @@ def test_dihedral(points, angle):
     vectorAB = points[1, :] - points[0, :]
     vectorBC = points[2, :] - points[1, :]
     vectorCD = points[3, :] - points[2, :]
-    #assert np.allclose(mda.lib.mdamath.dihedral(vectorAB, vectorBC, vectorCD), angle)
     assert np.allclose(geometry.dihedral(vectorAB, vectorBC, vectorCD), angle)

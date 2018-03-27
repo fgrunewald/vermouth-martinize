@@ -53,15 +53,10 @@ def dihedral(vectorAB, vectorBC, vectorCD):
              \
               C - D
     
-    See <https://math.stackexchange.com/a/47084>.
     """
-    unitBC = vectorBC / np.linalg.norm(vectorBC)
     normalABC = np.cross(vectorAB, vectorBC)
-    normalABC /= np.linalg.norm(normalABC)
     normalBCD = np.cross(vectorBC, vectorCD)
-    normalBCD /= np.linalg.norm(normalBCD)
-    frame_m = np.cross(normalABC, unitBC)
-    x = np.dot(normalABC, normalBCD)
-    y = np.dot(frame_m, normalBCD)
-    return np.arctan2(x, y)
+    psin = np.dot(normalABC, vectorCD) * np.linalg.norm(vectorBC)
+    pcos = np.dot(normalABC, normalBCD)
+    return np.arctan2(psin, pcos)
 

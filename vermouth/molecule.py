@@ -59,7 +59,7 @@ class NotDefinedOrNot(LinkPredicate):
 class LinkParameterEffector:
     n_keys_asked = None
 
-    def __init__(self, keys):
+    def __init__(self, keys, format=None):
         self.keys = keys
         if self.n_keys_asked is not None and len(self.keys) != self.n_keys_asked:
             raise ValueError(
@@ -67,10 +67,14 @@ class LinkParameterEffector:
                 '{} were expected, but {} were rovided.'
                 .format(self.__class__.name, self.n_keys_asked, len(keys))
             )
+        self.format = format
 
     def __call__(self, molecule, match):
         keys = [match[key] for key in self.keys]
-        return self.apply(molecule, keys)
+        result = self.apply(molecule, keys)
+        if self.format is not None:
+            result = '{value:{format}}'.format(value=result, format=self.format)
+        return result
 
     def apply(self, molecule, keys):
         msg = 'The method need to be implemented by the children class.'

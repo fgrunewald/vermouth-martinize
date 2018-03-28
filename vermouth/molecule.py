@@ -415,6 +415,13 @@ class Molecule(nx.Graph):
     def iter_residues(self):
         residue_graph = graph_utils.make_residue_graph(self)
         return (tuple(residue_graph.nodes[res]['graph'].nodes) for res in residue_graph.nodes)
+    
+    def __hash__(self):
+        if not self.frozen:
+            raise TypeError('Unfrozen Graphs are not hashable. Try calling '
+                            'networkx.freeze(graph) first.')
+        fingerprint = self.ecfp(radius=2, invariant=self.invariant)
+        return hash(tuple(fingerprint.items()))
 
 
 class Block(nx.Graph):

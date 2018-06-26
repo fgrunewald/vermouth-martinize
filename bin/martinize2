@@ -350,6 +350,11 @@ def entry():
         delete_unknown=True,
     )
 
+    # Merge chains if required.
+    if args.merge_chains:
+        for chain_set in args.merge_chains:
+            vermouth.MergeChains(chain_set).run_system(system)
+
     # Apply a rubber band elastic network is required.
     if args.elastic:
         if args.rb_selection is not None:
@@ -378,10 +383,6 @@ def entry():
         node_selector = node_selectors[args.posres]
         vermouth.ApplyPosres(node_selector, args.posres_fc).run_system(system)
 
-    # Merge chains if required.
-    if args.merge_chains:
-        for chain_set in args.merge_chains:
-            vermouth.MergeChains(chain_set).run_system(system)
 
     # Write the topology if requested
     if args.top_path is not None:

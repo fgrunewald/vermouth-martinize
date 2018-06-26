@@ -362,7 +362,7 @@ TYR                1
 [bonds]
 #meta {"group": "Side chain bonds"}
 ;  i     j   funct   length  force.c.
-   1     2    1       0.325    5000 	
+   1     2    1       0.336    5000 	
 
 [constraints]
 ;  i     j   funct   length  
@@ -380,7 +380,7 @@ TYR                1
 
 [dihedrals]
 ;  i     j    k    l   funct   angle  force.c.
-   5     3    2    1       2    180.0    50.0     ; to prevent backflipping of ring
+   5     3    4    2       2    180.0    50.0     ; to prevent backflipping of ring
 
 ;;; TRYPTOPHAN
 
@@ -414,7 +414,7 @@ TRP                1
 #meta {"group": "Side chain angles"}
 ;  i     j    k     funct   angle  force.c.
    1     2    3       2   210.000   50.0 
-   1     2    4       2   90.000    60.0  
+   1     2    5       2   90.000    60.0  
 
 [dihedrals]
 ;  i     j    k    l   funct   angle  force.c.

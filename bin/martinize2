@@ -245,6 +245,8 @@ def entry():
                                  help='Use dihedrals for extended regions rather than elastic bonds')
     secstruct_group.add_argument('-collagen', action='store_true', default=False,
                                  help='Use collagen parameters')
+    secstruct_group.add_argument('-ss', default=None,
+                                 help='Provide a secondary structure sequence')
 
     rb_group = parser.add_argument_group('Protein elastic network')
     rb_group.add_argument('-elastic', action='store_true', default=False,
@@ -316,7 +318,16 @@ def entry():
                               force_field=known_force_fields[from_ff])
 
     target_ff = known_force_fields[args.to_ff]
-    if args.dssp is not None:
+    if args.ss is not None:
+        AnnotateResidues(
+            attribute='secstruct',
+            sequence=args.ss,
+            molecule_selector=selectors.is_protein
+        ).run_system(system)
+        AnnotateMartiniSecondaryStructures().run_system(system)
+        logging.info('The following secondary structure was applied: {}.'
+                     .format(args.ss))
+    elif args.dssp is not None:
         AnnotateDSSP(executable=args.dssp, savedir='.').run_system(system)
         AnnotateMartiniSecondaryStructures().run_system(system)
     elif args.collagen:
